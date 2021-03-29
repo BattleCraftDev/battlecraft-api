@@ -42,9 +42,10 @@ _route.post('/news/add', multer({
     try {
         if(!req.body.title){ return res.status(400).json({ message: "Не указан заголовок", message_en: "Title not defined" }); }
         if(!req.body.text){ return res.status(400).json({ message: "Не указан текст", message_en: "Text not defined" }); }
-        let { title, text } = req.body;
+        if(!req.body.preview){ return res.status(400).json({ message: "Не указан превью текст", message_en: "Text preview not defined" }); }
+        let { title, text, preview } = req.body;
         let img_url         = req.file ? req.file.filename : ''; 
-        let news            = await News.create({ title, text, img_url });
+        let news            = await News.create({ title, text, img_url, preview });
         return res.json(news.toJSON());
     } catch (error) { return errorHear.hear(res, error); }
 });
@@ -56,6 +57,7 @@ _route.post('/news/:id/edit', async (req, res) => {
         if(!news){ return res.status(400).json({ message: "Новость с данным ID не найдена", message_en: "News with that ID not found" }); }
         news.title      = (String(req.body.title).length) ? String(req.body.title) : news.title;
         news.text       = (String(req.body.text).length) ? String(req.body.text) : news.text;
+        news.preview    = (String(req.body.preview).length) ? String(req.body.preview) : news.preview;
         await news.save();
         return res.json(news.toJSON());
     } catch (error) { return errorHear.hear(res, erorr); }
