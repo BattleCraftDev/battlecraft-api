@@ -204,10 +204,4 @@ _route.get('/refs', async (req, res) => {
     } catch (error) { return errorHelper.hear(res, error); }
 });
 
-setInterval(async () => {
-    try {
-        await Temp2fa.destroy({ where: { expires: { $lte: new Date().getTime() } } });
-    } catch (error) { return console.error(`Ошибка удаления истекших 2fa-кодов подтверждения: ${error.message}\n${error.stack}`); }
-}, 1000 * 60 * 5);
-
 module.exports = _route;

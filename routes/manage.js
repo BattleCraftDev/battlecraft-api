@@ -77,7 +77,7 @@ _route.post('/news/upload', multer({
         destination: path.resolve('images'),
         filename: (req, file, callback) => {
             let type = path.extname(file.originalname);
-            let types = ['.png', '.jpg', '.jpeg', '.gif', ".webp"];
+            let types = ['.png', '.jpg', '.jpeg', '.gif', ".webp"];       
             if(types.includes(type)){
                 return callback(null, `news_${new Date().getTime()}${type}`);
             }

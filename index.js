@@ -39,6 +39,9 @@ const ifAuthed      = require('./middlewares/ifAuthed');
 const isManager     = require('./middlewares/isManager');
 const logger        = require('./middlewares/logger');
 
+// Timers
+const startTimers   = require('./timers');
+
 // Utils
 const { getDataForClient }  = require('./utils/servers');
 
@@ -92,6 +95,8 @@ server.listen(config.server.port, async () => {
         console.log(`EnotIO sync successful`);
         console.clear();
         console.log(`API - Server > listen > ::${config.server.port}`);
+
+        startTimers();
     } catch (error) {
         console.log(`[Model Sync] -> Error -> ${error.message}\n${error.stack}`);
     }
