@@ -30,12 +30,13 @@ _route.post('/buy', ifAuthed, async (req, res) => {
     try {
         // ID - Товаров
         let { products: productsIds } = req.body;
-        let products = await Products.findAll({ where: { id: { $in: productsIds }}});
+        let products = await Products.findAll({ where: { id: productsIds }});
         // Если товаров - нет
         if(!products.length){ return res.status(404).json({ message: "Товары не найдены", message_en: "Products not found" }); }
         // Если цена товара больше, чем кристаллов у пользователя
-        let allPrice    = products.reduce((prev, current) => (prev.price + current.price));
-        if(allPrice > req.user.crystals){ return res.status(403).json({ message: "Не хватает кристаллов", message: "Not enough crystals" }); }
+        let allPrice    = products.map((product) => product.toJSON()).reduce((prev, current) => prev + current.price, 0);
+        console.log(allPrice, req.user.crystals);
+        if(allPrice > req.user.crystals){ return res.status(403).json({ message: "Не хватает кристаллов", message_en: "Not enough crystals" }); }
         // Перебираем товары
         for(let i = 0; i < products.length; i++){
             let { type, server, data }  = products[i];

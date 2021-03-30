@@ -74,6 +74,17 @@ _route.post('/signin', _ifNotAuthed, async (req, res) => {
     } catch (error) { return errorHelper.hear(res, error); }
 });
 
+// Обновление токена
+_route.post('/updateToken', _ifAuthed, async (req, res) => {
+    let user = await User.findOne({ where: { email: req.user.email }});
+    if(!user){ return res.status(404).json({message: 'Пользователь не найден', message_en: "User not found"}) }
+    let token = jwt.getToken(user.toJSON());
+    delete user.password;
+    delete user.emailCode;
+    delete user.tfaSecret;
+    return res.json({ user, token });
+});
+
 // Получение данных пользователя
 _route.get('/user', _ifAuthed, async (req, res) => {
     try {

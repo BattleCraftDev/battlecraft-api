@@ -9,7 +9,21 @@
             "password": "server_rcon_pass",
             "host": "127.0.0.1",
             "port": 25781
-        }
+        },
+        "features": ["Собственная система достижений.", "Телепорт к другу.", "Система рефералов.", "Система наград за голосования.", "Магазин по команде /shop."],
+        "main_info": {
+            "game_version": "1.12.2",
+            "pvp": true,
+            "economy": true,
+            "map_generation": "1 числа",
+            "last_wipe": "1 июня 2018"
+        },
+        "mods": ["Inventory Tweaks", "NEI", "Optifine HD"],
+        "screenshots": [
+            "https://minecraftonly.ru/templates/2018/img/screenshots_descr/classic/1.png",
+            "https://minecraftonly.ru/templates/2018/img/screenshots_descr/classic/3.png",
+            "https://minecraftonly.ru/templates/2018/img/screenshots_descr/classic/2.png"
+        ]
     },
     {
         "name": "Server #2",
@@ -21,6 +35,20 @@
             "password": "server_rcon_pass",
             "host": "127.0.0.1",
             "port": 25781
-        }
+        },
+        "features": ["Собственная система достижений.", "Телепорт к другу.", "Система рефералов.", "Система наград за голосования.", "Магазин по команде /shop."],
+        "main_info": {
+            "game_version": "1.12.2",
+            "pvp": true,
+            "economy": true,
+            "map_generation": "1 числа",
+            "last_wipe": "1 июня 2018"
+        },
+        "mods": ["Inventory Tweaks", "NEI", "Optifine HD"],
+        "screenshots": [
+            "https://minecraftonly.ru/templates/2018/img/screenshots_descr/classic/1.png",
+            "https://minecraftonly.ru/templates/2018/img/screenshots_descr/classic/3.png",
+            "https://minecraftonly.ru/templates/2018/img/screenshots_descr/classic/2.png"
+        ]
     }
 ]

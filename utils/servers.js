@@ -5,9 +5,17 @@ const RCON    = require('modern-rcon');
 const serversById = {};
 const serversInfoForClient = [];
 
-for (let i = 0; i < servers.length; i++) {
-    serversById[servers[i].model_name] = servers[i];
-    serversInfoForClient.push({ name: servers[i].name, ip: servers[i].address, id: servers[i].model_name });
+for (let server of servers) {
+    serversById[server.model_name] = server;
+    serversInfoForClient.push({
+        name: server.name,
+        ip: server.address,
+        id: server.model_name,
+        features: server.features,
+        main_info: server.main_info,
+        mods: server.mods,
+        screenshots: server.screenshots,
+    });
 }
 
 module.exports.getServers = async () => {
