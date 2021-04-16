@@ -52,7 +52,10 @@ module.exports  = class UnitPay {
                     let ref = await Refs.findOne({ where: { user_id: user.id } });
                     if(ref){
                         let ref_owner = await User.findOne({ where: { id: ref.owner_id } });
-                        ref_owner.crystals += Math.floor((orderSum / 100) * 10);
+                        const earned = Math.floor((orderSum / 100) * 10);
+                        ref_owner.crystals += earned;
+                        ref.earned += earned;
+                        await ref.save();
                         await ref_owner.save();
                     }
                     await user.save();

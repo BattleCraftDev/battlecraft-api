@@ -35,10 +35,11 @@
         "secretKey": "",
         "projectId": 0 
     },
-    "enotio": {
-        "secretWord": "",
-        "secretWord2": "",
-        "merchantId": 0
+    "qiwi": {
+        "public_key": "Публичный ключ QIWI",
+        "secret_key": "Секретный ключ QIWI",
+        "successUrl": "URL успешной оплаты (Пример: https://battlecraft.com/)",
+        "comment": "Комментарий к форме платежа"
     },
     "reCaptcha": {
         "secret": ""

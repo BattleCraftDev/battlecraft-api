@@ -6,6 +6,7 @@ const News = sequelize.define('News', {
     text: { type: Types.TEXT, allowNull: false },
     preview: { type: Types.TEXT, allowNull: false },
     img_url: { type: Types.TEXT, allowNull: false },
+    displayOnJumbotron: { type: Types.BOOLEAN, defaultValue: false },
 }, { tableName: 'news' });
 
 module.exports = News;

@@ -35,7 +35,7 @@ _route.post('/news/add', multer({
         }
     }),
     fileFilter: (req, file, callback) => {
-        if(!req.body.title || !req.body.text){ return callback(null, false); }
+        if(!req.body.title || !req.body.preview){ return callback(null, false); }
         return callback(null, true);
     }
 }).single('image'), async (req, res) => {
@@ -43,10 +43,9 @@ _route.post('/news/add', multer({
         if(!req.body.title){ return res.status(400).json({ message: "Не указан заголовок", message_en: "Title not defined" }); }
         if(!req.body.text){ return res.status(400).json({ message: "Не указан текст", message_en: "Text not defined" }); }
         if(!req.body.preview){ return res.status(400).json({ message: "Не указан превью текст", message_en: "Text preview not defined" }); }
-        let { title, text, preview } = req.body;
-        console.log(req.file);
-        let img_url         = req.file ? req.file.filename : ''; 
-        let news            = await News.create({ title, text, img_url, preview });
+        let { title, text, preview, displayOnJumbotron = false } = req.body;
+        let img_url         = req.file ? req.file.filename : '';
+        let news            = await News.create({ title, text, img_url, preview, displayOnJumbotron: !!displayOnJumbotron });
         return res.json(news.toJSON());
     } catch (error) { return errorHear.hear(res, error); }
 });

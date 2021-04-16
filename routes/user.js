@@ -29,6 +29,9 @@ _route.get('/2fa', async (req, res) => {
             case 'google': { 
                 // 2FA по Google-Auth
                 let data    = await tfa.generateQrCode();
+                // Удаление прошлого запроса
+                const ex = await Temp2fa.findOne({ userId: req.user.id });
+                if (ex) await ex.destroy();
                 // Временное хранилище подтверждения 2fa
                 await Temp2fa.create({
                     userId: req.user.id,
@@ -36,7 +39,7 @@ _route.get('/2fa', async (req, res) => {
                     tfaCode: data.secret,
                     // 5 минут на подтверждение
                     expires: new Date().getTime() + 300000
-                })
+                });
                 return res.json({ qrcode: data.imageCode });
             }
             case 'email': {
@@ -198,9 +201,10 @@ _route.post('/change/skin', multer({
 // Получить рефералов
 _route.get('/refs', async (req, res) => {
     try {
-        let refs = await Refs.findAll({ where: { owner_id: req.user.id } });
-        for(let i = 0; i < refs.length; i++){ refs[i] = refs[i].toJSON(); }
-        return res.json(refs); 
+        const refs = await Refs.findAll({ where: { owner_id: req.user.id } });
+        const users = await User.findAll({ where: { id: refs.map((ref) => ref.user_id) } });
+        const ret = users.map((user) => ({ login: user.login, earned: refs.find((ref) => ref.user_id === user.id).earned }));
+        return res.json(ret); 
     } catch (error) { return errorHelper.hear(res, error); }
 });
 

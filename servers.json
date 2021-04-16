@@ -4,7 +4,7 @@
         "table_name": "serverone_permissions_inheritance",
         "model_name": "server_one",
         "type": "pex",
-        "address": "127.0.0.1:25770",
+        "address": "mc.hypixel.net",
         "rcon": {
             "password": "server_rcon_pass",
             "host": "127.0.0.1",

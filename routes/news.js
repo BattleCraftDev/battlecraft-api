@@ -10,6 +10,13 @@ _route.get('/', async (req, res) => {
     } catch (error) { return errorHelper.hear(res, error); } 
 });
 
+_route.get('/slider', async (req, res) => {
+    try {
+        let news = await News.findAll({ where: { displayOnJumbotron: true } });
+        return res.json(news);
+    } catch (error) { return errorHelper.hear(res, error); } 
+});
+
 _route.get('/:id', async (req, res) => {
     try {
         if(!Number.isInteger(Number(req.params.id))){ return res.status(400).json({ message: 'Неверный ID', message_en: "Invalid ID"}); }
